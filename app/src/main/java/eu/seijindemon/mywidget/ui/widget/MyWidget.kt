@@ -8,8 +8,6 @@ class MyWidget : GlanceAppWidget() {
 
     @Composable
     override fun Content() {
-        MyWidgetTheme {
-            MyWidgetComposable()
-        }
+        MyWidgetComposable()
     }
 }
