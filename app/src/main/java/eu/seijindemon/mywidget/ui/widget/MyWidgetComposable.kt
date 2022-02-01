@@ -22,9 +22,13 @@ import androidx.glance.unit.ColorProvider
 
 @Composable
 fun MyWidgetComposable() {
-    val openUrl = remember {
+    val telegram = remember {
         Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=seijind"))
     }
+    val phone = remember {
+        Intent(Intent.ACTION_CALL, Uri.parse("tel:1122334455"))
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalAlignment = Alignment.CenterVertically,
@@ -42,16 +46,29 @@ fun MyWidgetComposable() {
             )
         )
         Spacer(modifier = GlanceModifier.size(8.dp))
-        Button(
-            text = "Send me :)",
-            style = TextStyle(
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp,
-                color = ColorProvider(color = Color.White),
-            ),
-            modifier = GlanceModifier.background(color = Color.DarkGray),
-            onClick = actionStartActivity(openUrl)
-        )
+        Row {
+            Button(
+                text = "Send me",
+                style = TextStyle(
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    color = ColorProvider(color = Color.White),
+                ),
+                modifier = GlanceModifier.background(color = Color.DarkGray),
+                onClick = actionStartActivity(telegram)
+            )
+            Spacer(modifier = GlanceModifier.size(8.dp))
+            Button(
+                text = "Call me",
+                style = TextStyle(
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    color = ColorProvider(color = Color.White),
+                ),
+                modifier = GlanceModifier.background(color = Color.DarkGray),
+                onClick = actionStartActivity(phone)
+            )
+        }
     }
 }
 
