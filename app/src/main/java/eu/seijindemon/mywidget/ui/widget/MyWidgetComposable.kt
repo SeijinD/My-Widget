@@ -18,6 +18,7 @@ import androidx.glance.layout.*
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import androidx.glance.unit.ColorProvider
 
 @Composable
 fun MyWidgetComposable() {
@@ -30,13 +31,14 @@ fun MyWidgetComposable() {
         modifier = GlanceModifier
             .width(300.dp)
             .height(150.dp)
-            .background(color = Color.Cyan)
+            .background(color = Color.Gray)
     ) {
         Text(
             text = "I missed you!",
             style = TextStyle(
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 18.sp,
+                color = ColorProvider(color = Color.White)
             )
         )
         Spacer(modifier = GlanceModifier.size(8.dp))
@@ -44,8 +46,10 @@ fun MyWidgetComposable() {
             text = "Send me :)",
             style = TextStyle(
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = ColorProvider(color = Color.White),
             ),
+            modifier = GlanceModifier.background(color = Color.DarkGray),
             onClick = actionStartActivity(openUrl)
         )
     }
