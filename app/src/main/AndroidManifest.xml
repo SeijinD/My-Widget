@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.seijindemon.mywidget">
 
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".ui.app.AppApplication"
