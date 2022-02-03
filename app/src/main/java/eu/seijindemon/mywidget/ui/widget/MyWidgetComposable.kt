@@ -33,8 +33,8 @@ fun MyWidgetComposable() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalAlignment = Alignment.CenterVertically,
         modifier = GlanceModifier
-            .width(300.dp)
-            .height(150.dp)
+            .width(200.dp)
+            .height(100.dp)
             .background(color = Color.Gray)
     ) {
         Text(
