@@ -19,6 +19,7 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import androidx.glance.appwidget.cornerRadius
 
 @Composable
 fun MyWidgetComposable() {
@@ -54,7 +55,9 @@ fun MyWidgetComposable() {
                     fontSize = 16.sp,
                     color = ColorProvider(color = Color.White),
                 ),
-                modifier = GlanceModifier.background(color = Color.DarkGray),
+                modifier = GlanceModifier
+                    .background(color = Color.DarkGray)
+                    .cornerRadius(8.dp),
                 onClick = actionStartActivity(telegram)
             )
             Spacer(modifier = GlanceModifier.size(8.dp))
@@ -65,7 +68,9 @@ fun MyWidgetComposable() {
                     fontSize = 16.sp,
                     color = ColorProvider(color = Color.White),
                 ),
-                modifier = GlanceModifier.background(color = Color.DarkGray),
+                modifier = GlanceModifier
+                    .background(color = Color.DarkGray)
+                    .cornerRadius(8.dp),
                 onClick = actionStartActivity(phone)
             )
         }
