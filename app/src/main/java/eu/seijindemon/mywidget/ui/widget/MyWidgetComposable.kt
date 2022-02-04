@@ -1,6 +1,5 @@
 package eu.seijindemon.mywidget.ui.widget
 
-
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri

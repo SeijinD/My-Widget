@@ -1,4 +1,4 @@
-package eu.seijindemon.mywidget.ui.composable.home
+package eu.seijindemon.mywidget.ui.composable
 
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable

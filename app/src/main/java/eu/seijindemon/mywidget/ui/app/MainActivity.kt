@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import eu.seijindemon.mywidget.ui.composable.home.HomeScreen
+import eu.seijindemon.mywidget.ui.composable.HomeScreen
 import eu.seijindemon.mywidget.ui.theme.MyWidgetTheme
 
 @AndroidEntryPoint
