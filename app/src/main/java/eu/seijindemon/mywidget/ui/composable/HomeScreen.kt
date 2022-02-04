@@ -1,6 +1,5 @@
 package eu.seijindemon.mywidget.ui.composable
 
-
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
@@ -21,6 +20,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionRequired
 import com.google.accompanist.permissions.rememberPermissionState
@@ -29,8 +30,9 @@ import java.util.*
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun HomeScreen() {
-
+fun HomeScreen(
+    navController: NavController
+) {
     val context = LocalContext.current
 
     val doNotShowRationale = rememberSaveable { mutableStateOf(false) }
@@ -61,12 +63,14 @@ fun HomeScreen() {
             )
         }
     ) {
-        HomeContent()
+        HomeContent(navController = navController)
     }
 }
 
 @Composable
-fun HomeContent() {
+fun HomeContent(
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,6 +79,18 @@ fun HomeContent() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val context = LocalContext.current
+        Button(
+            onClick = {
+                navController.navigate("settings")
+            },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.DarkGray,
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = "Create Custom Widget")
+        }
+        Spacer(modifier = Modifier.height(32.dp))
         Text(
             text = "Call Phone permission Granted!",
             color = Color.Gray,
@@ -201,6 +217,9 @@ private fun PermissionDenied(
 @Composable
 fun HomeScreenPreview() {
     MyWidgetTheme {
-        HomeScreen()
+        val navController = rememberNavController()
+        HomeScreen(
+            navController = navController
+        )
     }
 }
