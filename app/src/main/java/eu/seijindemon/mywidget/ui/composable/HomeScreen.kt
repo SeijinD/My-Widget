@@ -4,6 +4,7 @@ package eu.seijindemon.mywidget.ui.composable
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,6 +25,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionRequired
 import com.google.accompanist.permissions.rememberPermissionState
 import eu.seijindemon.mywidget.ui.theme.MyWidgetTheme
+import java.util.*
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -72,11 +74,35 @@ fun HomeContent() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        val context = LocalContext.current
         Text(
             text = "Call Phone permission Granted!",
             color = Color.Gray,
             textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "If you have a Xiaomi device, click here to accept the permission to launch pop up in the background.",
+            color = Color.Gray,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                if ("xiaomi" == Build.MANUFACTURER.toLowerCase(Locale.ROOT)) {
+                    val intent = Intent("miui.intent.action.APP_PERM_EDITOR")
+                    intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity")
+                    intent.putExtra("extra_pkgname", context.applicationContext.packageName)
+                    context.startActivity(intent)
+                }
+            },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.DarkGray,
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = "Open Settings")
+        }
     }
 }
 
