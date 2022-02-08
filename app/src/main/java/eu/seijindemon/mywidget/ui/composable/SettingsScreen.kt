@@ -8,9 +8,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,16 +47,37 @@ fun SettingsContent(
     languageViewModel: LanguageViewModel,
     saveDataViewModel: SaveDataViewModel
 ) {
+    val phoneData by saveDataViewModel.phone.observeAsState("")
+    val telegramData by saveDataViewModel.telegram.observeAsState("")
+
+    var phone by remember { mutableStateOf(phoneData) }
+    var telegram by remember { mutableStateOf(telegramData) }
+
     Column(
         modifier = Modifier
+            .padding(all = 4.dp)
             .fillMaxSize()
             .background(color = Color.White),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
+        CustomOutlinedTextField(
+            value = phone,
+            onValueChange = { phone = it },
+            leadingIconImageVector = Icons.Filled.Phone
+        )
         Divider(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = {
 
+            },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.DarkGray,
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = "Save")
+        }
     }
 }
 
