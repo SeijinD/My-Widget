@@ -22,8 +22,11 @@ class DataStorePreferenceRepository @Inject constructor(
 ) {
     companion object {
         val LANGUAGE = stringPreferencesKey("LanguageData")
+        val PHONE = stringPreferencesKey("PhoneData")
+        val TELEGRAM = stringPreferencesKey("TelegramData")
     }
 
+    // Language
     suspend fun setLanguage(language: Int) {
         context.datastore.edit { preferences ->
             preferences[LANGUAGE] = language.toString()
@@ -34,38 +37,26 @@ class DataStorePreferenceRepository @Inject constructor(
         preferences[LANGUAGE]?.toInt() ?: 0
     }
 
-//    private val languageDataStore: DataStore<Preferences> = context.createDataStore(name = "LanguageData")
-//    private val defaultLanguage = 0
-//
-//    private val themeDataStore: DataStore<Preferences> = context.createDataStore(name = "ThemeData")
-//    private val defaultTheme = 0
-//
-//    companion object {
-//        val PREF_LANGUAGE = preferencesKey<Int>("language")
-//        val PREF_THEME = preferencesKey<Int>("theme")
-//
-//        private var INSTANCE: DataStorePreferenceRepository? = null
-//
-//        fun getInstance(context: Context): DataStorePreferenceRepository {
-//            return INSTANCE ?: synchronized(this) {
-//                INSTANCE?.let {
-//                    return it
-//                }
-//                val instance = DataStorePreferenceRepository(context = context)
-//                INSTANCE = instance
-//                instance
-//            }
-//        }
-//    }
-//
-//    suspend fun setLanguage(language: Int) {
-//        languageDataStore.edit { preferences ->
-//            preferences[PREF_LANGUAGE] = language
-//        }
-//    }
-//
-//    val getLanguage: Flow<Int> = languageDataStore.data
-//        .map {  preferences ->
-//            preferences[PREF_LANGUAGE] ?: defaultLanguage
-//        }
+    // Phone
+    suspend fun setPhone(phone: String) {
+        context.datastore.edit { preferences ->
+            preferences[PHONE] = phone
+        }
+    }
+
+    suspend fun getPhone() = context.datastore.data.map { preferences ->
+        preferences[PHONE] ?: ""
+    }
+
+    // Telegram
+    suspend fun setTelegram(telegram: String) {
+        context.datastore.edit { preferences ->
+            preferences[TELEGRAM] = telegram
+        }
+    }
+
+    suspend fun getTelegram() = context.datastore.data.map { preferences ->
+        preferences[TELEGRAM] ?: ""
+    }
+
 }

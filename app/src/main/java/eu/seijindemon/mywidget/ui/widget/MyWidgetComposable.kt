@@ -19,9 +19,13 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import androidx.glance.appwidget.cornerRadius
+import androidx.lifecycle.viewmodel.compose.viewModel
+import eu.seijindemon.mywidget.ui.viewmodel.AppViewModel
 
 @Composable
 fun MyWidgetComposable() {
+    val viewModel: AppViewModel = viewModel()
+
     val telegram = remember {
         Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=seijind"))
     }
