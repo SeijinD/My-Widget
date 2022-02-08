@@ -16,6 +16,7 @@ import eu.seijindemon.mywidget.ui.composable.general.SetLanguage
 import eu.seijindemon.mywidget.ui.theme.MyWidgetTheme
 import eu.seijindemon.mywidget.ui.viewmodel.AppViewModel
 import eu.seijindemon.mywidget.ui.viewmodel.LanguageViewModel
+import eu.seijindemon.mywidget.ui.viewmodel.SaveDataViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -34,12 +35,13 @@ fun NavigationComponent() {
     val navController = rememberNavController()
     val viewModel: AppViewModel = viewModel()
     val languageViewModel: LanguageViewModel = viewModel()
+    val saveDataViewModel: SaveDataViewModel = viewModel()
 
     LoadLanguage(languageViewModel = languageViewModel)
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") { HomeScreen(navController) }
-        composable("settings") { SettingsScreen(navController, languageViewModel) }
+        composable("settings") { SettingsScreen(navController, languageViewModel, saveDataViewModel) }
     }
 }
 

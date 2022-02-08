@@ -15,19 +15,26 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import eu.seijindemon.mywidget.ui.theme.MyWidgetTheme
 import eu.seijindemon.mywidget.ui.viewmodel.LanguageViewModel
+import eu.seijindemon.mywidget.ui.viewmodel.SaveDataViewModel
 
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    viewModel: LanguageViewModel
+    languageViewModel: LanguageViewModel,
+    saveDataViewModel: SaveDataViewModel
 ) {
-    SettingsContent(navController = navController, viewModel = viewModel)
+    SettingsContent(
+        navController = navController,
+        languageViewModel = languageViewModel,
+        saveDataViewModel = saveDataViewModel
+    )
 }
 
 @Composable
 fun SettingsContent(
     navController: NavController,
-    viewModel: LanguageViewModel
+    languageViewModel: LanguageViewModel,
+    saveDataViewModel: SaveDataViewModel
 ) {
     Column(
         modifier = Modifier
@@ -49,10 +56,12 @@ fun SettingsContent(
 fun SettingsScreenPreview() {
     MyWidgetTheme {
         val navController = rememberNavController()
-        val viewModel: LanguageViewModel = viewModel()
+        val languageViewModel: LanguageViewModel = viewModel()
+        val saveDataViewModel: SaveDataViewModel = viewModel()
         SettingsContent(
             navController = navController,
-            viewModel = viewModel
+            languageViewModel = languageViewModel,
+            saveDataViewModel = saveDataViewModel
         )
     }
 }
