@@ -20,17 +20,20 @@ import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import androidx.glance.appwidget.cornerRadius
 import androidx.lifecycle.viewmodel.compose.viewModel
-import eu.seijindemon.mywidget.ui.viewmodel.AppViewModel
+import eu.seijindemon.mywidget.ui.viewmodel.SaveDataViewModel
 
 @Composable
 fun MyWidgetComposable() {
-    val viewModel: AppViewModel = viewModel()
+    val viewModel: SaveDataViewModel = viewModel()
 
-    val telegram = remember {
-        Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=seijind"))
-    }
+    val phoneData = viewModel.phone
+    val telegramData = viewModel.telegram
+
     val phone = remember {
-        Intent(Intent.ACTION_CALL, Uri.parse("tel:1122334455"))
+        Intent(Intent.ACTION_CALL, Uri.parse("tel:${phoneData}"))
+    }
+    val telegram = remember {
+        Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=${telegramData}"))
     }
 
     Column(
