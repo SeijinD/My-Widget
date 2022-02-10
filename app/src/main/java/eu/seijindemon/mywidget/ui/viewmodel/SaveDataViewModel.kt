@@ -1,12 +1,10 @@
 package eu.seijindemon.mywidget.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eu.seijindemon.mywidget.data.repository.DataStorePreferenceRepository
 import eu.seijindemon.mywidget.usecase.GetPhoneUseCase
 import eu.seijindemon.mywidget.usecase.GetTelegramUseCase
 import eu.seijindemon.mywidget.usecase.SavePhoneUseCase
@@ -33,7 +31,6 @@ class SaveDataViewModel @Inject constructor(
         viewModelScope.launch {
             getPhoneUseCase().collect { phone ->
                 _phone.value = phone
-                Log.d("TAGG", _phone.value!!)
             }
             getTelegramUseCase().collect { telegram ->
                 _telegram.value = telegram

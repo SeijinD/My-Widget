@@ -7,10 +7,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Error
-import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -72,11 +69,20 @@ fun SettingsContent(
                 textColor = Color.DarkGray
             )
         )
+        CustomOutlinedTextField(
+            value = telegram,
+            onValueChange = { telegram = it },
+            leadingIconImageVector = Icons.Filled.Message,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                textColor = Color.DarkGray
+            )
+        )
         Divider(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
                 scope.launch {
                     saveDataViewModel.savePhone(phone = phone)
+                    saveDataViewModel.saveTelegram(telegram = telegram)
                 }
             },
             colors = ButtonDefaults.buttonColors(
