@@ -1,18 +1,26 @@
 package eu.seijindemon.mywidget.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.seijindemon.mywidget.data.repository.DataStorePreferenceRepository
+import eu.seijindemon.mywidget.usecase.GetPhoneUseCase
+import eu.seijindemon.mywidget.usecase.GetTelegramUseCase
+import eu.seijindemon.mywidget.usecase.SavePhoneUseCase
+import eu.seijindemon.mywidget.usecase.SaveTelegramUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SaveDataViewModel @Inject constructor(
-    private val dataStorePreferenceRepository: DataStorePreferenceRepository
+    private val savePhoneUseCase: SavePhoneUseCase,
+    private val saveTelegramUseCase: SaveTelegramUseCase,
+    private val getPhoneUseCase: GetPhoneUseCase,
+    private val getTelegramUseCase: GetTelegramUseCase
 ): ViewModel() {
 
     private val _phone = MutableLiveData("")
@@ -23,20 +31,21 @@ class SaveDataViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            dataStorePreferenceRepository.getPhone().collect {
-                _phone.value = it
+            getPhoneUseCase().collect { phone ->
+                _phone.value = phone
+                Log.d("TAGG", _phone.value!!)
             }
-            dataStorePreferenceRepository.getTelegram().collect {
-                _telegram.value = it
+            getTelegramUseCase().collect { telegram ->
+                _telegram.value = telegram
             }
         }
     }
 
     suspend fun savePhone(phone: String) {
-        dataStorePreferenceRepository.setPhone(phone = phone)
+        savePhoneUseCase.invoke(phone = phone)
     }
 
     suspend fun saveTelegram(telegram: String) {
-        dataStorePreferenceRepository.setTelegram(telegram = telegram)
+        saveTelegramUseCase.invoke(telegram = telegram)
     }
 }

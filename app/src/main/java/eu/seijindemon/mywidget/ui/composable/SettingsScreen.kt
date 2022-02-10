@@ -27,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import eu.seijindemon.mywidget.ui.theme.MyWidgetTheme
 import eu.seijindemon.mywidget.ui.viewmodel.LanguageViewModel
 import eu.seijindemon.mywidget.ui.viewmodel.SaveDataViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen(
@@ -47,8 +48,10 @@ fun SettingsContent(
     languageViewModel: LanguageViewModel,
     saveDataViewModel: SaveDataViewModel
 ) {
-    val phoneData by saveDataViewModel.phone.observeAsState("")
-    val telegramData by saveDataViewModel.telegram.observeAsState("")
+    val scope = rememberCoroutineScope()
+
+    val phoneData = saveDataViewModel.phone.observeAsState().value ?: ""
+    val telegramData = saveDataViewModel.telegram.observeAsState().value ?: ""
 
     var phone by remember { mutableStateOf(phoneData) }
     var telegram by remember { mutableStateOf(telegramData) }
@@ -64,12 +67,17 @@ fun SettingsContent(
         CustomOutlinedTextField(
             value = phone,
             onValueChange = { phone = it },
-            leadingIconImageVector = Icons.Filled.Phone
+            leadingIconImageVector = Icons.Filled.Phone,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                textColor = Color.DarkGray
+            )
         )
         Divider(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-
+                scope.launch {
+                    saveDataViewModel.savePhone(phone = phone)
+                }
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.DarkGray,
@@ -94,7 +102,8 @@ fun CustomOutlinedTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     showError: Boolean = false,
-    errorMessage: String = ""
+    errorMessage: String = "",
+    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors()
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -112,7 +121,7 @@ fun CustomOutlinedTextField(
                 Icon(
                     imageVector = leadingIconImageVector,
                     contentDescription = leadingIconDescription,
-                    tint = if (showError) MaterialTheme.colors.error else MaterialTheme.colors.onSurface
+                    tint = if (showError) MaterialTheme.colors.error else Color.Black
                 )
             },
             isError = showError,
@@ -134,7 +143,8 @@ fun CustomOutlinedTextField(
             },
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
-            singleLine = true
+            singleLine = true,
+            colors = colors
         )
         if (showError) {
             Text(
