@@ -81,8 +81,10 @@ fun SettingsContent(
         Button(
             onClick = {
                 scope.launch {
-                    saveDataViewModel.savePhone(phone = phone)
-                    saveDataViewModel.saveTelegram(telegram = telegram)
+                    with(saveDataViewModel) {
+                        savePhone(phone = phone)
+                        saveTelegram(telegram = telegram)
+                    }
                 }
             },
             colors = ButtonDefaults.buttonColors(

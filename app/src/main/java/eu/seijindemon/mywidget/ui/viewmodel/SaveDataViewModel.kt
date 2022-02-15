@@ -32,6 +32,8 @@ class SaveDataViewModel @Inject constructor(
             getPhoneUseCase().collect { phone ->
                 _phone.value = phone
             }
+        }
+        viewModelScope.launch {
             getTelegramUseCase().collect { telegram ->
                 _telegram.value = telegram
             }
@@ -39,10 +41,10 @@ class SaveDataViewModel @Inject constructor(
     }
 
     suspend fun savePhone(phone: String) {
-        savePhoneUseCase.invoke(phone = phone)
+        savePhoneUseCase(phone = phone)
     }
 
     suspend fun saveTelegram(telegram: String) {
-        saveTelegramUseCase.invoke(telegram = telegram)
+        saveTelegramUseCase(telegram = telegram)
     }
 }

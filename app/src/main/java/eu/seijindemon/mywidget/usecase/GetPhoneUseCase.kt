@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetPhoneUseCase  @Inject constructor(
     private val dataStorePreferenceRepository: DataStorePreferenceRepository
 ) {
-    suspend operator fun invoke(): Flow<String> {
+    operator fun invoke(): Flow<String> {
         return dataStorePreferenceRepository.getPhone()
     }
 }
